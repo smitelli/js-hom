@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>HOM</title>
+    <style type="text/css">
+        .page {
+            position: relative;
+            overflow: hidden;
+            width: 320px;
+            height: 200px;
+            background: url('skybox.jpg');
+        }
+
+        .sprite {
+            position: absolute;
+            top: 0;
+            width: 79px;
+            height: 82px;
+            background-image: url('pistol.png');
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+</head>
+
+<body>
+    <div id="page-0" class="page"></div>
+    <div id="page-1" class="page"></div>
+    <div id="page-2" class="page"></div>
+
+    <script>
+        var frame = 0,
+            offsets = [
+                {x:0,y:0},{x:0,y:2},{x:0,y:3},{x:0,y:5},{x:1,y:6},{x:1,y:8},{x:2,y:9},{x:3,y:10},{x:4,y:11},{x:5,y:12},
+                {x:7,y:13},{x:8,y:14},{x:9,y:15},{x:11,y:15},{x:12,y:16},{x:14,y:16},{x:16,y:16},{x:17,y:16},
+                {x:19,y:16},{x:20,y:15},{x:22,y:15},{x:23,y:14},{x:24,y:13},{x:26,y:12},{x:27,y:11},{x:28,y:10},
+                {x:29,y:9},{x:30,y:8},{x:30,y:6},{x:31,y:5},{x:31,y:3},{x:31,y:2},{x:31,y:0},{x:31,y:2},{x:31,y:3},
+                {x:31,y:5},{x:30,y:6},{x:30,y:8},{x:29,y:9},{x:28,y:10},{x:27,y:11},{x:26,y:12},{x:24,y:13},{x:23,y:14},
+                {x:22,y:15},{x:20,y:15},{x:19,y:16},{x:17,y:16},{x:15,y:16},{x:14,y:16},{x:12,y:16},{x:11,y:15},
+                {x:9,y:15},{x:8,y:14},{x:7,y:13},{x:5,y:12},{x:4,y:11},{x:3,y:10},{x:2,y:9},{x:1,y:8},{x:1,y:6},
+                {x:0,y:5},{x:0,y:3},{x:0,y:2}
+            ];
+
+        $(document).ready(function () {
+            setInterval(animate, 1000 / 35);
+        });
+
+        function animate() {
+            var i = frame % offsets.length,
+                $sprite = getSprite(i).detach(),
+                page;
+
+            $sprite.css({
+                left: offsets[i].x + 89 + 'px',
+                top: offsets[i].y + 118 + 'px'
+            });
+
+            page = frame % 3
+            $('#page-' + page).hide();
+
+            frame++;
+
+            page = frame % 3
+            $('#page-' + page).show().append($sprite);
+        }
+
+        function getSprite(i) {
+            var $sprite = $('#sprite-' + i);
+
+            if (!$sprite.length) {
+                $sprite = $('<div />', {
+                    'id': 'sprite-' + i,
+                    'class': 'sprite'
+                });
+            }
+
+            return $sprite;
+        }
+    </script>
+</body>
+</html>
