@@ -47,7 +47,8 @@
 
         function animate() {
             var i = frame % offsets.length,
-                $sprite = getSprite(i).detach(),
+                j = frame % 192,
+                $sprite = getSprite(j).detach(),
                 page;
 
             $sprite.css({
